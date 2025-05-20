@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@theme {
+  --color-textBlack: #212B39;
+  --color-textBlue: #531BFA;
+  --color-textGray: #C1C4CA;
+  --color-cardBg: #FFFFFF;
+  --color-lightGreen: #06D6A0;
+  --color-textRed: #EF4444;
+}
