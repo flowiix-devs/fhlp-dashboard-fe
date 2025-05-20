@@ -1,14 +1,14 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Sidebar from '../src/components/Sidebar';
-import Header from '../src/components/Header';
-import PatientDashboard from '../src/pages/PatientDashboard';
-import SystemHealth from '../src/pages/SystemHealth';
-import AttackMonitoring from '../src/pages/AttackMonitoring';
-import PrivecyProtection from '../src/pages/PrivecyProtection';
-import ModelEveluation from '../src/pages/ModelEveluation';
-import Settings from '../src/pages/Settings';
-import { useSidebar } from '../src/context/SidebarContext';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import PatientDashboard from '../pages/PatientDashboard';
+import SystemHealth from '../pages/SystemHealth';
+import AttackMonitoring from '../pages/AttackMonitoring';
+import PrivecyProtection from '../pages/PrivecyProtection';
+import ModelEveluation from '../pages/ModelEveluation';
+import Settings from '../pages/Settings';
+import { useSidebar } from '../context/SidebarContext';
 
 const AppRoute = () => {
   const { isCollapsed } = useSidebar();
@@ -26,7 +26,7 @@ const AppRoute = () => {
   
   useEffect(() => {
     const path = location.pathname;
-    const title = routeTitles[path] || "Welcome to Your Dashboard";
+    const title = routeTitles[path] || "Patient Dashboard";
     setPageTitle(title);
   }, [location.pathname]);
 

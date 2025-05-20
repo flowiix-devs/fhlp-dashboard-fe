@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import AppRoute from "../routes/AppRoutes"
+import AppRoute from "./routes/AppRoutes"
 import { SidebarProvider } from "./context/SidebarContext"
 
 function App() {

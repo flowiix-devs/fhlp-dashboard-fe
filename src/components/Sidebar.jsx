@@ -4,12 +4,7 @@ import { useSidebar } from '../context/SidebarContext';
 
 const Sidebar = () => {
   const { isCollapsed, setIsCollapsed } = useSidebar();
-  
-  const Logo = () => (
-    <div className="text-red-500 h-8 w-8 flex items-center justify-center font-bold rounded-md bg-red-100">
-      F
-    </div>
-  );
+
   
   const menuItems = [
     {
