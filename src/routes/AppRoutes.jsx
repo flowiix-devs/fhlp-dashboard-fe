@@ -47,6 +47,20 @@ const AppRoute = () => {
           </button>
         </div>
       );
+    } else if (path === '/attack-monitoring') {
+      setPageContent(
+        <div className="flex items-center gap-6">
+          <div className="text-gray-600">
+            Threat Level: <span style={{ color: 'var(--color-lightGreen)' }} className="font-medium">Low</span>
+          </div>
+          <button style={{ 
+            backgroundColor: 'var(--color-lightGreen)', 
+            color: 'white' 
+          }} className="px-4 py-2 rounded-md hover:opacity-90 transition">
+            Scan Network
+          </button>
+        </div>
+      );
     } else {
       setPageContent(null);
     }
