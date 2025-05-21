@@ -1,4 +1,5 @@
 import React from 'react';
+import { Slider, Box, Typography } from '@mui/material';
 
 const SliderControl = ({ 
   label, 
@@ -9,41 +10,45 @@ const SliderControl = ({
   formatValue = (val) => `${val}%`,
   className = "mb-6"
 }) => {
-  // Calculate the percentage for positioning the slider handle
-  const percentage = ((value - min) / (max - min)) * 100;
-  
-  const handleSliderChange = (e) => {
-    // Get the slider container bounds
-    const rect = e.currentTarget.getBoundingClientRect();
-    // Calculate the new value based on click position
-    const clickX = e.clientX - rect.left;
-    const newPercentage = (clickX / rect.width) * 100;
-    const newValue = min + (newPercentage / 100) * (max - min);
-    
-    // Clamp the value between min and max
-    const clampedValue = Math.max(min, Math.min(max, newValue));
-    onChange(clampedValue);
+  // Handle slider change from MUI
+  const handleSliderChange = (_, newValue) => {
+    onChange(newValue);
   };
 
   return (
     <div className={className}>
       <div className="flex justify-between mb-2">
-        <span className="text-gray-700">{label}</span>
-        <span className="text-gray-500">{formatValue(value)}</span>
+        <Typography variant="body2" className="text-gray-700">{label}</Typography>
+        <Typography variant="body2" className="text-gray-500">{formatValue(value)}</Typography>
       </div>
-      <div 
-        className="relative h-2 bg-gray-200 rounded-full cursor-pointer" 
-        onClick={handleSliderChange}
-      >
-        <div 
-          className="absolute h-2 bg-blue-600 rounded-full"
-          style={{ width: `${percentage}%` }}
+      <Box sx={{ width: '100%' }}>
+        <Slider
+          value={value}
+          onChange={handleSliderChange}
+          min={min}
+          max={max}
+          step={(max - min) / 100}
+          aria-label={label}
+          sx={{
+            color: '#531BFA', // Using the theme blue color
+            height: 8,
+            '& .MuiSlider-thumb': {
+              height: 16,
+              width: 16,
+              backgroundColor: '#531BFA',
+            },
+            '& .MuiSlider-track': {
+              height: 8,
+              borderRadius: 4,
+            },
+            '& .MuiSlider-rail': {
+              height: 8,
+              borderRadius: 4,
+              backgroundColor: '#E5E7EB', // gray-200 equivalent
+            },
+          }}
         />
-        <div
-          className="absolute w-4 h-4 bg-blue-600 rounded-full -mt-1 -ml-2 cursor-pointer"
-          style={{ left: `${percentage}%` }}
-        />
-      </div>
+      </Box>
     </div>
   );
 };
