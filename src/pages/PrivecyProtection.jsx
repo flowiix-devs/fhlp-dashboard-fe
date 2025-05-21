@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import { Shield, Lock, ClipboardCheck, FileText, Fingerprint, User } from 'lucide-react';
+import StatusItem from '../components/StatusItem';
+import StatCard from '../components/StatCard';
+import SliderControl from '../components/SliderControl';
+import DataProtectionItem from '../components/DataProtectionItem';
 
 export default function PrivacyProtection() {
   const [noiseLevel, setNoiseLevel] = useState(60);
@@ -24,61 +28,37 @@ export default function PrivacyProtection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          {/* Data Encryption Card */}
-          <div className="bg-white p-4 rounded-lg shadow-sm">
-            <div className="mb-2 text-gray-600 text-sm">Data Encryption</div>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-xl font-bold text-gray-800">256-bit</div>
-                <div className="text-green-500 text-xs">AES Standard</div>
-              </div>
-              <div className="text-green-500">
-                <Lock size={24} />
-              </div>
-            </div>
-          </div>
-
-          {/* Privacy Compliance Card */}
-          <div className="bg-white p-4 rounded-lg shadow-sm">
-            <div className="mb-2 text-gray-600 text-sm">Privacy Compliance</div>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-xl font-bold text-gray-800">98%</div>
-                <div className="text-green-500 text-xs">HIPAA Compliant</div>
-              </div>
-              <div className="text-blue-600">
-                <ClipboardCheck size={24} />
-              </div>
-            </div>
-          </div>
-
-          {/* Data Anonymization Card */}
-          <div className="bg-white p-4 rounded-lg shadow-sm">
-            <div className="mb-2 text-gray-600 text-sm">Data Anonymization</div>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-xl font-bold text-gray-800">100%</div>
-                <div className="text-green-500 text-xs">Fully Protected</div>
-              </div>
-              <div className="text-green-500">
-                <Shield size={24} />
-              </div>
-            </div>
-          </div>
-
-          {/* Access Control Card */}
-          <div className="bg-white p-4 rounded-lg shadow-sm">
-            <div className="mb-2 text-gray-600 text-sm">Access Control</div>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-xl font-bold text-gray-800">Multi-Factor</div>
-                <div className="text-green-500 text-xs">Enhanced Security</div>
-              </div>
-              <div className="text-blue-600">
-                <Lock size={24} />
-              </div>
-            </div>
-          </div>
+          <StatCard 
+            title="Data Encryption" 
+            value="256-bit" 
+            subtitle="AES Standard" 
+            icon={<Lock size={24} />} 
+            iconColor="text-green-500" 
+          />
+          
+          <StatCard 
+            title="Privacy Compliance" 
+            value="98%" 
+            subtitle="HIPAA Compliant" 
+            icon={<ClipboardCheck size={24} />} 
+            iconColor="text-blue-600" 
+          />
+          
+          <StatCard 
+            title="Data Anonymization" 
+            value="100%" 
+            subtitle="Fully Protected" 
+            icon={<Shield size={24} />} 
+            iconColor="text-green-500" 
+          />
+          
+          <StatCard 
+            title="Access Control" 
+            value="Multi-Factor" 
+            subtitle="Enhanced Security" 
+            icon={<Lock size={24} />} 
+            iconColor="text-blue-600" 
+          />
         </div>
 
         {/* Grid for Differential Privacy Settings and Privacy Status */}
@@ -102,56 +82,29 @@ export default function PrivacyProtection() {
               </button>
             </div>
             
-            <div className="mb-6">
-              <div className="flex justify-between mb-2">
-                <span className="text-gray-700">Noise Level</span>
-                <span className="text-gray-500">{noiseLevel}%</span>
-              </div>
-              <div className="relative h-2 bg-gray-200 rounded-full">
-                <div 
-                  className="absolute h-2 bg-blue-600 rounded-full"
-                  style={{ width: `${noiseLevel}%` }}
-                />
-                <div
-                  className="absolute w-4 h-4 bg-blue-600 rounded-full -mt-1 -ml-2 cursor-pointer"
-                  style={{ left: `${noiseLevel}%` }}
-                />
-              </div>
-            </div>
+            <SliderControl 
+              label="Noise Level"
+              value={noiseLevel}
+              onChange={setNoiseLevel}
+              formatValue={(val) => `${val}%`}
+            />
             
-            <div className="mb-6">
-              <div className="flex justify-between mb-2">
-                <span className="text-gray-700">Epsilon Value</span>
-                <span className="text-gray-500">{epsilonValue}</span>
-              </div>
-              <div className="relative h-2 bg-gray-200 rounded-full">
-                <div 
-                  className="absolute h-2 bg-blue-600 rounded-full"
-                  style={{ width: `${epsilonValue * 100}%` }}
-                />
-                <div
-                  className="absolute w-4 h-4 bg-blue-600 rounded-full -mt-1 -ml-2 cursor-pointer"
-                  style={{ left: `${epsilonValue * 100}%` }}
-                />
-              </div>
-            </div>
+            <SliderControl 
+              label="Epsilon Value"
+              value={epsilonValue}
+              onChange={setEpsilonValue}
+              min={0}
+              max={1}
+              formatValue={(val) => val.toFixed(2)}
+            />
             
-            <div className="mb-2">
-              <div className="flex justify-between mb-2">
-                <span className="text-gray-700">Clipping Threshold</span>
-                <span className="text-gray-500">{clippingThreshold}%</span>
-              </div>
-              <div className="relative h-2 bg-gray-200 rounded-full">
-                <div 
-                  className="absolute h-2 bg-blue-600 rounded-full"
-                  style={{ width: `${clippingThreshold}%` }}
-                />
-                <div
-                  className="absolute w-4 h-4 bg-blue-600 rounded-full -mt-1 -ml-2 cursor-pointer"
-                  style={{ left: `${clippingThreshold}%` }}
-                />
-              </div>
-            </div>
+            <SliderControl 
+              label="Clipping Threshold"
+              value={clippingThreshold}
+              onChange={setClippingThreshold}
+              formatValue={(val) => `${val}%`}
+              className="mb-2"
+            />
           </div>
           
           {/* Privacy Status */}
@@ -159,47 +112,20 @@ export default function PrivacyProtection() {
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Privacy Status</h2>
             
             <div className="space-y-6">
-              <div className="flex items-center p-4 bg-green-100 rounded-lg">
-                <div className="flex items-center">
-                  <div className="mr-4 text-green-500 flex-shrink-0">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-medium text-gray-800">Data Encryption Active</div>
-                    <div className="text-gray-500 text-sm">Last verified: 5 min ago</div>
-                  </div>
-                </div>
-              </div>
+              <StatusItem 
+                title="Data Encryption Active" 
+                description="Last verified: 5 min ago" 
+              />
               
-                 <div className="flex items-center p-4 bg-green-100 rounded-lg">
-                <div className="flex items-center">
-                  <div className="mr-4 text-green-500 flex-shrink-0">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-medium text-gray-800">HIPAA Compliance</div>
-                    <div className="text-gray-500 text-sm">All checks passed</div>
-                  </div>
-                </div>
-              </div>
+              <StatusItem 
+                title="HIPAA Compliance" 
+                description="All checks passed" 
+              />
               
-                 <div className="flex items-center p-4 bg-green-100 rounded-lg">
-                <div className="flex items-center">
-                  <div className="mr-4 text-green-500 flex-shrink-0">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-medium text-gray-800">Access Controls</div>
-                    <div className="text-gray-500 text-sm">Properly configured</div>
-                  </div>
-                </div>
-              </div>
+              <StatusItem 
+                title="Access Controls" 
+                description="Properly configured" 
+              />
             </div>
           </div>
         </div>
@@ -210,57 +136,30 @@ export default function PrivacyProtection() {
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Sensitive Data Protection</h2>
             
             <div className="space-y-6">
-              {/* Biometric Data */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center">
-                  <div className="mr-4 text-purple-500">
-                    <Fingerprint size={24} />
-                  </div>
-                  <div>
-                    <div className="font-medium text-gray-800">Biometric Data</div>
-                    <div className="text-gray-500 text-sm">256-bit encrypted, anonymized</div>
-                  </div>
-                </div>
-                <div className="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm">
-                  Protected
-                </div>
-              </div>
+              <DataProtectionItem 
+                icon={<Fingerprint size={24} />}
+                title="Biometric Data"
+                description="256-bit encrypted, anonymized"
+                iconColor="text-purple-500"
+              />
               
-              {/* Medical Records */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center">
-                  <div className="mr-4 text-blue-500">
-                    <FileText size={24} />
-                  </div>
-                  <div>
-                    <div className="font-medium text-gray-800">Medical Records</div>
-                    <div className="text-gray-500 text-sm">End-to-end encryption</div>
-                  </div>
-                </div>
-                <div className="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm">
-                  Protected
-                </div>
-              </div>
+              <DataProtectionItem 
+                icon={<FileText size={24} />}
+                title="Medical Records"
+                description="End-to-end encryption"
+                iconColor="text-blue-500"
+              />
               
-              {/* Personal Information */}
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                <div className="flex items-center">
-                  <div className="mr-4 text-purple-500">
-                    <User size={24} />
-                  </div>
-                  <div>
-                    <div className="font-medium text-gray-800">Personal Information</div>
-                    <div className="text-gray-500 text-sm">Tokenized and encrypted</div>
-                  </div>
-                </div>
-                <div className="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm">
-                  Protected
-                </div>
-              </div>
+              <DataProtectionItem 
+                icon={<User size={24} />}
+                title="Personal Information"
+                description="Tokenized and encrypted"
+                iconColor="text-purple-500"
+              />
             </div>
           </div>
           <div className="md:col-span-1">
-            {/* Empty column to maintain layout consistency */}
+       
           </div>
         </div>
       </div>
