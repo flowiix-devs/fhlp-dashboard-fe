@@ -14,19 +14,6 @@ export default function PrivacyProtection() {
   return (
     <div className="bg-gray-50 min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-left mb-6">
-          <h1 className="text-2xl font-semibold text-gray-800">Privacy Protection</h1>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center">
-              <span className="text-gray-500 mr-2">Privacy Score:</span>
-              <span className="text-green-500 font-medium">Excellent</span>
-            </div>
-            <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md">
-              Run Privacy Check
-            </button>
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <StatCard 
             title="Data Encryption" 

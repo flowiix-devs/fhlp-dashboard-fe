@@ -13,8 +13,10 @@ import { useSidebar } from '../context/SidebarContext';
 const AppRoute = () => {
   const { isCollapsed } = useSidebar();
   const [pageTitle, setPageTitle] = useState("Welcome to Your Dashboard");
+  const [pageContent, setPageContent] = useState(null);
   const location = useLocation();
   
+  // Define route titles and content
   const routeTitles = {
     '/patient-dashboard': 'Patient Dashboard',
     '/system-health': 'System Health',
@@ -28,6 +30,23 @@ const AppRoute = () => {
     const path = location.pathname;
     const title = routeTitles[path] || "Patient Dashboard";
     setPageTitle(title);
+    
+    // Set page-specific content based on route
+    if (path === '/privecy-protection') {
+      setPageContent(
+        <div className="flex items-center gap-4">
+          <div className="flex items-center">
+            <span className="text-gray-500 mr-2">Privacy Score:</span>
+            <span className="text-green-500 font-medium">Excellent</span>
+          </div>
+          <button className="bg-lightGreen text-white px-4 py-2 rounded-md hover:bg-green-600">
+            Run Privacy Check
+          </button>
+        </div>
+      );
+    } else {
+      setPageContent(null);
+    }
   }, [location.pathname]);
 
   return (
@@ -35,7 +54,7 @@ const AppRoute = () => {
       <Sidebar />
       
       <div className={`flex-1  transition-all duration-300 ${isCollapsed ? 'ml-16' : 'ml-64'}`}>
-        <Header title={pageTitle} />
+        <Header title={pageTitle} pageContent={pageContent} />
         
         <div className='pl-5 pr-5'>
           <Routes>
