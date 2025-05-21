@@ -30,12 +30,12 @@ const SliderControl = ({
           step={(max - min) / 100}
           aria-label={label}
           sx={{
-            color: '#531BFA', // Using the theme blue color
+            color: 'var(--color-textBlue)',
             height: 8,
             '& .MuiSlider-thumb': {
               height: 16,
               width: 16,
-              backgroundColor: '#531BFA',
+              backgroundColor: 'var(--color-textBlue)',
             },
             '& .MuiSlider-track': {
               height: 8,
@@ -44,7 +44,7 @@ const SliderControl = ({
             '& .MuiSlider-rail': {
               height: 8,
               borderRadius: 4,
-              backgroundColor: '#E5E7EB', // gray-200 equivalent
+              backgroundColor: 'var(--color-grayBg)',
             },
           }}
         />

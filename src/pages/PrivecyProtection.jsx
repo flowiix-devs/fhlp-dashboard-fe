@@ -12,7 +12,7 @@ export default function PrivacyProtection() {
   const [activeTab, setActiveTab] = useState('Basic');
 
   return (
-    <div className="bg-gray-50 min-h-screen p-6">
+    <div style={{ backgroundColor: 'var(--color-grayLight)' }} className="min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <StatCard 
@@ -51,19 +51,37 @@ export default function PrivacyProtection() {
         {/* Grid for Differential Privacy Settings and Privacy Status */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
           {/* Differential Privacy Settings */}
-          <div className="bg-white p-6 rounded-lg shadow-sm md:col-span-2">
+          <div style={{ backgroundColor: 'var(--color-cardBg)' }} className="p-6 rounded-lg shadow-sm md:col-span-2">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Differential Privacy Settings</h2>
             
             <div className="flex mb-4">
               <button 
-                className={`px-4 py-1 mr-2 rounded-md ${activeTab === 'Basic' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                className={`px-4 py-1 mr-2 rounded-md ${
+                  activeTab === 'Basic' 
+                    ? 'bg-textBlue text-white' 
+                    : 'bg-grayBg text-grayMedium'
+                }`}
                 onClick={() => setActiveTab('Basic')}
+                style={
+                  activeTab === 'Basic' 
+                    ? { backgroundColor: 'var(--color-textBlue)', color: 'white' } 
+                    : { backgroundColor: 'var(--color-grayBg)', color: 'var(--color-grayMedium)' }
+                }
               >
                 Basic
               </button>
               <button 
-                className={`px-4 py-1 rounded-md ${activeTab === 'Advanced' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                className={`px-4 py-1 rounded-md ${
+                  activeTab === 'Advanced' 
+                    ? 'bg-textBlue text-white' 
+                    : 'bg-grayBg text-grayMedium'
+                }`}
                 onClick={() => setActiveTab('Advanced')}
+                style={
+                  activeTab === 'Advanced' 
+                    ? { backgroundColor: 'var(--color-textBlue)', color: 'white' } 
+                    : { backgroundColor: 'var(--color-grayBg)', color: 'var(--color-grayMedium)' }
+                }
               >
                 Advanced
               </button>
@@ -95,7 +113,7 @@ export default function PrivacyProtection() {
           </div>
           
           {/* Privacy Status */}
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-blue-200 md:col-span-1">
+          <div style={{ backgroundColor: 'var(--color-cardBg)' }} className="p-6 rounded-lg shadow-sm border border-blue-200 md:col-span-1">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Privacy Status</h2>
             
             <div className="space-y-6">
@@ -119,7 +137,7 @@ export default function PrivacyProtection() {
 
         {/* Sensitive Data Protection with same width as Differential Privacy Settings */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm md:col-span-2">
+          <div style={{ backgroundColor: 'var(--color-cardBg)' }} className="p-6 rounded-lg shadow-sm md:col-span-2">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Sensitive Data Protection</h2>
             
             <div className="space-y-6">

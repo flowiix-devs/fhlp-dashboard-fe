@@ -37,9 +37,12 @@ const AppRoute = () => {
         <div className="flex items-center gap-4">
           <div className="flex items-center">
             <span className="text-gray-500 mr-2">Privacy Score:</span>
-            <span className="text-green-500 font-medium">Excellent</span>
+            <span style={{ color: 'var(--color-lightGreen)' }} className="font-medium">Excellent</span>
           </div>
-          <button className="bg-lightGreen text-white px-4 py-2 rounded-md hover:bg-green-600">
+          <button style={{ 
+            backgroundColor: 'var(--color-lightGreen)', 
+            color: 'white' 
+          }} className="px-4 py-2 rounded-md hover:opacity-90">
             Run Privacy Check
           </button>
         </div>
