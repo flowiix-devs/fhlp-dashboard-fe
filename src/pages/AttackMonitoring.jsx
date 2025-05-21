@@ -12,28 +12,15 @@ import {
 import StatCard from '../components/StatCard';
 
 function AttackMonitoring() {
-  // Add state for time period selection
   const [selectedPeriod, setSelectedPeriod] = useState('week');
 
-  // Handler for time period selection
   const handlePeriodChange = (period) => {
     setSelectedPeriod(period);
     // In a real application, you would fetch data for the selected period here
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      {/* Header Section */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-gray-800">Attack Monitoring</h1>
-        <div className="flex items-center gap-4">
-          <div className="text-gray-600">Threat Level: <span className="text-green-500 font-medium">Low</span></div>
-          <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition">
-            Scan Network
-          </button>
-        </div>
-      </div>
-
+    <div className="bg-gray-50 rounded-lg">
       {/* Stats Cards */}
       <div className="grid grid-cols-4 gap-6 mb-6">
         <div className="bg-white p-4 rounded-lg shadow-sm">
