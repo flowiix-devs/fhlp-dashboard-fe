@@ -23,57 +23,37 @@ function AttackMonitoring() {
     <div className="bg-gray-50 rounded-lg">
       {/* Stats Cards */}
       <div className="grid grid-cols-4 gap-6 mb-6">
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <div className="flex justify-between items-start">
-            <div>
-              <div className="text-gray-600 text-sm">Total Attacks</div>
-              <div className="text-2xl font-bold mt-1">127</div>
-              <div className="text-green-500 text-xs mt-1">+12% vs last week</div>
-            </div>
-            <div className="bg-green-100 p-2 rounded-full">
-              <Info className="text-green-500" size={20} />
-            </div>
-          </div>
-        </div>
+        <StatCard 
+          title="Total Attacks" 
+          value="127" 
+          subtitle="+12% vs last week" 
+          icon={<Info size={20} />} 
+          iconColor="bg-green-100 p-2 rounded-full text-green-500"
+        />
 
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <div className="flex justify-between items-start">
-            <div>
-              <div className="text-gray-600 text-sm">Blocked Attacks</div>
-              <div className="text-2xl font-bold mt-1">124</div>
-              <div className="text-gray-500 text-xs mt-1">97.6% success rate</div>
-            </div>
-            <div className="bg-indigo-100 p-2 rounded-full">
-              <Info className="text-indigo-500" size={20} />
-            </div>
-          </div>
-        </div>
+        <StatCard 
+          title="Blocked Attacks" 
+          value="124" 
+          subtitle="97.6% success rate" 
+          icon={<Info size={20} />} 
+          iconColor="bg-indigo-100 p-2 rounded-full text-indigo-500"
+        />
 
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <div className="flex justify-between items-start">
-            <div>
-              <div className="text-gray-600 text-sm">Active Threats</div>
-              <div className="text-2xl font-bold mt-1">3</div>
-              <div className="text-red-500 text-xs mt-1">Requires attention</div>
-            </div>
-            <div className="bg-red-100 p-2 rounded-full">
-              <AlertCircle className="text-red-500" size={20} />
-            </div>
-          </div>
-        </div>
+        <StatCard 
+          title="Active Threats" 
+          value="3" 
+          subtitle="Requires attention" 
+          icon={<AlertCircle size={20} />} 
+          iconColor="bg-red-100 p-2 rounded-full text-red-500"
+        />
 
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <div className="flex justify-between items-start">
-            <div>
-              <div className="text-gray-600 text-sm">Security Score</div>
-              <div className="text-2xl font-bold mt-1">94/100</div>
-              <div className="text-green-500 text-xs mt-1">Good standing</div>
-            </div>
-            <div className="bg-blue-100 p-2 rounded-full">
-              <Star className="text-blue-500" size={20} />
-            </div>
-          </div>
-        </div>
+        <StatCard 
+          title="Security Score" 
+          value="94/100" 
+          subtitle="Good standing" 
+          icon={<Star size={20} />} 
+          iconColor="bg-blue-100 p-2 rounded-full text-blue-500"
+        />
       </div>
 
       {/* Attack Patterns & Types */}
