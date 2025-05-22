@@ -12,11 +12,11 @@ const Sidebar = () => {
       name: 'Patient Dashboard',
       icon: <Hospital className="text-xl" />
     },
-    {
-      path: '/system-health',
-      name: 'System Health',
-      icon: <HeartPulse className="text-xl" />
-    },
+    // {
+    //   path: '/system-health',
+    //   name: 'System Health',
+    //   icon: <HeartPulse className="text-xl" />
+    // },
     {
       path: '/attack-monitoring',
       name: 'Attack Monitoring',
@@ -27,11 +27,11 @@ const Sidebar = () => {
       name: 'Privecy Protection',
       icon: <UserLock className="text-xl" />
     },
-    {
-      path: '/model-evaluation',
-      name: 'Model Evaluation',
-      icon: <ChartLine className="text-xl" />
-    },
+    // {
+    //   path: '/model-evaluation',
+    //   name: 'Model Evaluation',
+    //   icon: <ChartLine className="text-xl" />
+    // },
     {
       path: '/settings',
       name: 'Settings',
