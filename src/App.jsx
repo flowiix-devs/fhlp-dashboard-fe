@@ -1,7 +1,7 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import AppRoute from "./routes/AppRoutes"
-import { SidebarProvider } from "./context/SidebarContext"
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AppRoute from "../routes/AppRoutes";
+import { SidebarProvider } from "./context/SidebarContext";
+import "./App.css";
 function App() {
   return (
     <BrowserRouter>
@@ -11,7 +11,7 @@ function App() {
         </Routes>
       </SidebarProvider>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
