@@ -20,7 +20,8 @@ function AttackMonitoring() {
   };
 
   return (
-    <div className="bg-gray-50 rounded-lg">
+    <div style={{ backgroundColor: 'var(--color-grayLight)' }} className="min-h-screen p-6">
+            <div className="p-2 overflow-hidden">
       {/* Stats Cards */}
       <div className="grid grid-cols-4 gap-6 mb-6">
         <StatCard 
@@ -211,6 +212,7 @@ function AttackMonitoring() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
