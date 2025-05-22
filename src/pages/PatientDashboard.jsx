@@ -8,6 +8,7 @@ import SecurityMetrics from "../components/patient-dashboard/securityMatrics";
 
 function PatientDashboard() {
   return (
+        <div style={{ backgroundColor: 'var(--color-grayLight)' }} className="min-h-screen p-6">
     <div className="p-2 overflow-hidden">
       <div className="flex gap-5">
         <StatCard
@@ -54,6 +55,7 @@ function PatientDashboard() {
 
         <SecurityMetrics />
       </div>
+    </div>
     </div>
   );
 }
