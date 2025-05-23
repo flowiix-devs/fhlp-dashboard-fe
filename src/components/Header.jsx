@@ -1,6 +1,16 @@
-import { Bell, User, HelpCircle } from 'lucide-react';
+import { Bell, User, HelpCircle, LogOut } from 'lucide-react'; // Added LogOut icon
+import { useAuth } from '../context/AuthContext'; // Import useAuth
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Header = ({ title = "Welcome to Your Dashboard", pageContent = null }) => {
+  const { user, logout } = useAuth(); // Get user and logout function
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login'); // Redirect to login page after logout
+  };
+
   return (
     <div className="bg-cardBg p-5 shadow-sm ml-0 mr-0 mt-0 mb-5 flex justify-between items-center">
       <h1 className="text-2xl font-semibold text-textBlack">{title}</h1>
@@ -17,7 +27,10 @@ const Header = ({ title = "Welcome to Your Dashboard", pageContent = null }) => 
           <div className="bg-purple-600 rounded-full h-8 w-8 flex items-center justify-center overflow-hidden">
             <User size={18} className="text-white" />
           </div>
-          <span className="font-medium text-textBlack">Admin</span>
+          {/* Display user's name if available, otherwise fallback */}
+          <span className="font-medium text-textBlack">
+            {user ? `${user.firstName} ${user.lastName}` : 'Admin'}
+          </span>
         </div>
         <button className="relative p-2 rounded-full hover:bg-gray-100 transition-colors">
           <Bell size={20} />
@@ -25,6 +38,14 @@ const Header = ({ title = "Welcome to Your Dashboard", pageContent = null }) => 
         </button>
         <button className="relative p-2 rounded-full hover:bg-gray-100 transition-colors">
           <HelpCircle size={20} />
+        </button>
+        {/* Logout Button */}
+        <button 
+          onClick={handleLogout}
+          className="relative p-2 rounded-full hover:bg-gray-100 transition-colors"
+          title="Logout"
+        >
+          <LogOut size={20} style={{ color: 'var(--color-textRed)' }} />
         </button>
       </div>
     </div>
