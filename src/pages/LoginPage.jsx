@@ -15,7 +15,7 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8050/api/auth/login", {
+      const response = await fetch("http://localhost:3000/api/auth/login", {
         // Ensure your backend port is correct
         method: "POST",
         headers: {
