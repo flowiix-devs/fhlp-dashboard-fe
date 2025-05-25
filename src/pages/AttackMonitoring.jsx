@@ -433,6 +433,12 @@ function AttackMonitoring() {
                   }
                 }}
               />
+            ) : attackPatterns && attackPatterns.length > 0 ? (
+              <div className="h-full flex flex-col justify-center items-center text-gray-500">
+                <p className="font-medium mb-2">Attack Pattern Summary</p>
+                <p className="text-sm">Total patterns: {attackPatterns.length}</p>
+                <p className="text-sm">Period: {selectedPeriod}</p>
+              </div>
             ) : (
               <div className="h-full flex items-center justify-center text-gray-400">
                 <p>No attack data available</p>
@@ -451,35 +457,29 @@ function AttackMonitoring() {
             </div>
           ) : (
             <div className="space-y-4">
-              <div>
-                <div className="flex justify-between mb-1">
-                  <span className="text-sm text-gray-600">Model Poisoning</span>
-                  <span className="text-sm text-gray-600">45%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-green-500 h-2 rounded-full" style={{ width: "45%" }}></div>
-                </div>
-              </div>
-              
-              <div>
-                <div className="flex justify-between mb-1">
-                  <span className="text-sm text-gray-600">Data Evasion</span>
-                  <span className="text-sm text-gray-600">30%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-indigo-600 h-2 rounded-full" style={{ width: "30%" }}></div>
-                </div>
-              </div>
-              
-              <div>
-                <div className="flex justify-between mb-1">
-                  <span className="text-sm text-gray-600">Data Theft Attempts</span>
-                  <span className="text-sm text-gray-600">25%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-red-400 h-2 rounded-full" style={{ width: "25%" }}></div>
-                </div>
-              </div>
+              {attackTypes.map((attackType, index) => {
+                // Determine color based on attack type
+                let barColor = "";
+                if (attackType.type.toLowerCase().includes('poisoning')) {
+                  barColor = "bg-green-500";
+                } else if (attackType.type.toLowerCase().includes('evasion')) {
+                  barColor = "bg-indigo-600";
+                } else {
+                  barColor = "bg-red-400";
+                }
+                
+                return (
+                  <div key={index}>
+                    <div className="flex justify-between mb-1">
+                      <span className="text-sm text-gray-600">{attackType.type}</span>
+                      <span className="text-sm text-gray-600">{attackType.percentage}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className={`${barColor} h-2 rounded-full`} style={{ width: `${attackType.percentage}%` }}></div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
@@ -497,50 +497,57 @@ function AttackMonitoring() {
             </div>
           ) : (
             <div className="space-y-3">
-              <div className="bg-red-50 p-3 rounded-md flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <div className="bg-red-100 p-2 rounded-full">
-                    <AlertOctagon className="text-red-500" size={18} />
+              {recentAttacks.map((attack, index) => {
+                // Determine colors based on risk level
+                let bgColor = "bg-green-50";
+                let iconBgColor = "bg-green-100";
+                let iconColor = "text-green-500";
+                let riskBgColor = "bg-green-100";
+                let riskTextColor = "text-green-600";
+                let RiskIcon = Info;
+                let riskLabel = "Low Risk";
+                
+                if (attack.risk === 'high') {
+                  bgColor = "bg-red-50";
+                  iconBgColor = "bg-red-100";
+                  iconColor = "text-red-500";
+                  riskBgColor = "bg-red-100";
+                  riskTextColor = "text-red-600";
+                  RiskIcon = AlertOctagon;
+                  riskLabel = "High Risk";
+                } else if (attack.risk === 'medium') {
+                  bgColor = "bg-yellow-50";
+                  iconBgColor = "bg-yellow-100";
+                  iconColor = "text-yellow-500";
+                  riskBgColor = "bg-yellow-100";
+                  riskTextColor = "text-yellow-600";
+                  RiskIcon = AlertTriangle;
+                  riskLabel = "Medium Risk";
+                }
+                
+                return (
+                  <div key={index} className={`${bgColor} p-3 rounded-md flex justify-between items-center`}>
+                    <div className="flex items-center gap-3">
+                      <div className={`${iconBgColor} p-2 rounded-full`}>
+                        <RiskIcon className={iconColor} size={18} />
+                      </div>
+                      <div>
+                        <div className="font-medium">{attack.type}</div>
+                        <div className="text-sm text-gray-500">{attack.node} | {attack.time}</div>
+                      </div>
+                    </div>
+                    <div className={`${riskBgColor} ${riskTextColor} px-2 py-1 text-xs rounded-full`}>
+                      {riskLabel}
+                    </div>
                   </div>
-                  <div>
-                    <div className="font-medium">Model Poisoning Attempt</div>
-                    <div className="text-sm text-gray-500">Node-03 | 15 minutes ago</div>
-                  </div>
-                </div>
-                <div className="bg-red-100 text-red-600 px-2 py-1 text-xs rounded-full">
-                  High Risk
-                </div>
-              </div>
+                );
+              })}
               
-              <div className="bg-yellow-50 p-3 rounded-md flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <div className="bg-yellow-100 p-2 rounded-full">
-                    <AlertTriangle className="text-yellow-500" size={18} />
-                  </div>
-                  <div>
-                    <div className="font-medium">DDoS Attack</div>
-                    <div className="text-sm text-gray-500">Node-02 | 45 minutes ago</div>
-                  </div>
+              {recentAttacks.length === 0 && (
+                <div className="text-center py-4 text-gray-500">
+                  No recent attacks detected
                 </div>
-                <div className="bg-yellow-100 text-yellow-600 px-2 py-1 text-xs rounded-full">
-                  Medium Risk
-                </div>
-              </div>
-              
-              <div className="bg-green-50 p-3 rounded-md flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                  <div className="bg-green-100 p-2 rounded-full">
-                    <Info className="text-green-500" size={18} />
-                  </div>
-                  <div>
-                    <div className="font-medium">Unauthorized Access Attempt</div>
-                    <div className="text-sm text-gray-500">Node-01 | 1 hour ago</div>
-                  </div>
-                </div>
-                <div className="bg-green-100 text-green-600 px-2 py-1 text-xs rounded-full">
-                  Blocked
-                </div>
-              </div>
+              )}
             </div>
           )}
         </div>
@@ -554,16 +561,40 @@ function AttackMonitoring() {
               <p className="text-gray-400">Loading security recommendations...</p>
             </div>
           ) : (
-            <div className="bg-white p-4 rounded-md border border-gray-100">
-              <div className="flex items-center gap-3">
-                <div className="bg-indigo-100 p-2 rounded-full">
-                  <Lock className="text-indigo-600" size={18} />
+            <div className="space-y-3">
+              {securityRecommendations.map((recommendation, index) => {
+                // Determine priority styling
+                let priorityColor = "text-blue-600";
+                let priorityText = "Medium Priority";
+                
+                if (recommendation.priority === 'high') {
+                  priorityColor = "text-indigo-600";
+                  priorityText = "High Priority";
+                } else if (recommendation.priority === 'low') {
+                  priorityColor = "text-green-600";
+                  priorityText = "Low Priority";
+                }
+                
+                return (
+                  <div key={index} className="bg-white p-4 rounded-md border border-gray-100">
+                    <div className="flex items-center gap-3">
+                      <div className="bg-indigo-100 p-2 rounded-full">
+                        <Lock className="text-indigo-600" size={18} />
+                      </div>
+                      <div>
+                        <div className="font-medium">{recommendation.text}</div>
+                        <div className={`text-sm ${priorityColor}`}>{priorityText}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              
+              {securityRecommendations.length === 0 && (
+                <div className="text-center py-4 text-gray-500">
+                  No security recommendations at this time
                 </div>
-                <div>
-                  <div className="font-medium">Update Node-03 Security Protocol</div>
-                  <div className="text-sm text-indigo-600">High Priority</div>
-                </div>
-              </div>
+              )}
             </div>
           )}
         </div>
