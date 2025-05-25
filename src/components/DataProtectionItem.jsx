@@ -5,7 +5,7 @@ const DataProtectionItem = ({
   title, 
   description, 
   iconColor = "text-purple-500",
-  status = "Protected" 
+  status = true 
 }) => {
   return (
     <div style={{ backgroundColor: 'var(--color-grayLight)' }} className="flex items-center justify-between p-4 rounded-lg">
@@ -18,8 +18,8 @@ const DataProtectionItem = ({
           <div className="text-gray-500 text-sm">{description}</div>
         </div>
       </div>
-      <div className="bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm">
-        {status}
+      <div className={`${status ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'} px-3 py-1 rounded-full text-sm`}>
+        {status ? 'Protected' : 'Not Protected'}
       </div>
     </div>
   );
