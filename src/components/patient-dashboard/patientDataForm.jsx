@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { PanelsTopLeft } from "lucide-react";
+import { toast } from "react-toastify";
 
 const PatientDataForm = () => {
   const [formData, setFormData] = useState({
@@ -53,10 +54,13 @@ const PatientDataForm = () => {
         formData
       );
       console.log("Analysis Result:", response.data);
-      alert("Analysis submitted successfully!");
+      toast.success("Analysis submitted successfully!");
     } catch (error) {
+      toast.error(
+        data.message ||
+          "Failed to submit data. Check the console for more info."
+      );
       console.error("Error submitting data:", error);
-      alert("Failed to submit data. Check the console for more info.");
     }
   };
 
