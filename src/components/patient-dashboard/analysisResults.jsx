@@ -21,21 +21,21 @@ const BorderLinearProgress = styled(LinearProgress, {
   },
 }));
 
-const AnalysisResults = () => {
-  const predictionProbability = 87.2;
+const AnalysisResults = ({
+  predictionProbability = 0,
+  modelConfidence = {
+    accuracy: 0,
+    precision: 0,
+    recall: 0,
+  },
+}) => {
   const riskFactors = [
     { name: "Age", impact: "High Impact" },
     { name: "Cholesterol", impact: "High Impact" },
     { name: "Chest Pain", impact: "Medium Impact" },
     { name: "Max Heart Rate", impact: "Medium Impact" },
   ];
-  const modelConfidence = {
-    accuracy: 94.7,
-    precision: 92.3,
-    recall: 89.5,
-  };
 
-  // Get impact color based on level
   const getImpactColor = (impact) => {
     switch (impact) {
       case "High Impact":
@@ -62,10 +62,7 @@ const AnalysisResults = () => {
         </h2>
       </header>
 
-      <section
-        aria-labelledby="prediction-heading"
-        className="flex gap-5 mb-6 "
-      >
+      <section aria-labelledby="prediction-heading" className="flex gap-5 mb-6">
         {/* Prediction Section */}
         <article
           className="p-6 border-[1px] border-gray-200 rounded-lg flex-1 bg-gray-100"
@@ -105,19 +102,17 @@ const AnalysisResults = () => {
           <h3 className="text-lg font-medium text-gray-700">Risk Factors</h3>
           <ul className="mt-4 space-y-2">
             {riskFactors.map((factor, index) => (
-              <>
-                <li key={index} className="">
-                  <div className="flex justify-between text-sm ">
-                    <span className="text-gray-700">{factor.name}</span>
-                    <span
-                      className={`font-medium ${getImpactColor(factor.impact)}`}
-                    >
-                      {factor.impact}
-                    </span>
-                  </div>
-                  <hr className="text-gray-300" />
-                </li>
-              </>
+              <li key={index}>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-700">{factor.name}</span>
+                  <span
+                    className={`font-medium ${getImpactColor(factor.impact)}`}
+                  >
+                    {factor.impact}
+                  </span>
+                </div>
+                <hr className="text-gray-300" />
+              </li>
             ))}
           </ul>
         </article>
@@ -141,8 +136,8 @@ const AnalysisResults = () => {
               <div className="w-full bg-gray-200 rounded-full h-2.5">
                 <BorderLinearProgress
                   variant="determinate"
-                  value={predictionProbability}
-                  barcolor={getBarColor(predictionProbability)}
+                  value={value}
+                  barcolor={getBarColor(value)}
                 />
               </div>
               <span className="text-sm font-medium text-green-600">
