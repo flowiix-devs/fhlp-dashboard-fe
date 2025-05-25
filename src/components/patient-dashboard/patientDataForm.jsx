@@ -1,16 +1,25 @@
-import { PanelsTopLeft } from "lucide-react";
 import React, { useState } from "react";
+import axios from "axios";
+import { PanelsTopLeft } from "lucide-react";
+import { toast } from "react-toastify";
 
 const PatientDataForm = () => {
   const [formData, setFormData] = useState({
     age: "",
     sex: "",
-    chestPain: "",
-    bp: "",
-    cholesterol: "",
-    fastingSugar: "",
-    restingEcg: "",
-    maxHeartRate: "",
+    education: "",
+    currentSmoker: "",
+    cigsPerDay: "",
+    BPMeds: "",
+    prevalentStroke: "",
+    prevalentHyp: "",
+    diabetes: "",
+    totChol: "",
+    sysBP: "",
+    diaBP: "",
+    bmi: "",
+    heartRate: "",
+    glucose: "",
   });
 
   const handleChange = (e) => {
@@ -22,17 +31,37 @@ const PatientDataForm = () => {
     setFormData({
       age: "",
       sex: "",
-      chestPain: "",
-      bp: "",
-      cholesterol: "",
-      fastingSugar: "",
-      restingEcg: "",
-      maxHeartRate: "",
+      education: "",
+      currentSmoker: "",
+      cigsPerDay: "",
+      BPMeds: "",
+      prevalentStroke: "",
+      prevalentHyp: "",
+      diabetes: "",
+      totChol: "",
+      sysBP: "",
+      diaBP: "",
+      bmi: "",
+      heartRate: "",
+      glucose: "",
     });
   };
 
-  const handleAnalyse = () => {
-    console.log(formData);
+  const handleAnalyse = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/analyse-patient",
+        formData
+      );
+      console.log("Analysis Result:", response.data);
+      toast.success("Analysis submitted successfully!");
+    } catch (error) {
+      toast.error(
+        data.message ||
+          "Failed to submit data. Check the console for more info."
+      );
+      console.error("Error submitting data:", error);
+    }
   };
 
   return (
@@ -45,120 +74,118 @@ const PatientDataForm = () => {
           Patient Data Input
         </h2>
       </div>
+
       <div className="grid grid-cols-2 gap-4">
-        {/* Age */}
-        <div>
-          <label className="text-sm">Age</label>
-          <input
-            type="number"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* Sex */}
-        <div>
-          <label className="text-sm">Sex</label>
-          <select
-            name="sex"
-            value={formData.sex}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="0">Female</option>
-            <option value="1">Male</option>
-          </select>
-        </div>
-
-        {/* Chest Pain Type */}
-        <div>
-          <label className="text-sm">Chest Pain Type</label>
-          <select
-            name="chestPain"
-            value={formData.chestPain}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="0">Typical Angina</option>
-            <option value="1">Atypical Angina</option>
-            <option value="2">Non-anginal Pain</option>
-            <option value="3">Asymptomatic</option>
-          </select>
-        </div>
-
-        {/* Resting BP */}
-        <div>
-          <label className="text-sm">Resting BP</label>
-          <input
-            type="number"
-            name="bp"
-            value={formData.bp}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* Cholesterol */}
-        <div>
-          <label className="text-sm">Cholesterol</label>
-          <input
-            type="number"
-            name="cholesterol"
-            value={formData.cholesterol}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* Fasting Blood Sugar */}
-        <div>
-          <label className="text-sm">Fasting Blood Sugar</label>
-          <select
-            name="fastingSugar"
-            value={formData.fastingSugar}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="0">False</option>
-            <option value="1">True</option>
-          </select>
-        </div>
-
-        {/* Resting ECG */}
-        <div>
-          <label className="text-sm">Resting ECG</label>
-          <select
-            name="restingEcg"
-            value={formData.restingEcg}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="0">Normal</option>
-            <option value="1">ST-T Abnormality</option>
-            <option value="2">LV Hypertrophy</option>
-          </select>
-        </div>
-
-        {/* Max Heart Rate */}
-        <div>
-          <label className="text-sm">Max Heart Rate</label>
-          <input
-            type="number"
-            name="maxHeartRate"
-            value={formData.maxHeartRate}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
+        {[
+          { name: "age", label: "Age", type: "number" },
+          {
+            name: "sex",
+            label: "Sex",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "0", label: "Female" },
+              { value: "1", label: "Male" },
+            ],
+          },
+          {
+            name: "education",
+            label: "Education",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Less than High School" },
+              { value: "2", label: "High School Graduate" },
+              { value: "3", label: "Some College/Technical School" },
+              { value: "4", label: "College Graduate or Higher" },
+            ],
+          },
+          {
+            name: "currentSmoker",
+            label: "Current Smoker",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          { name: "cigsPerDay", label: "Cigarettes Per Day", type: "number" },
+          {
+            name: "BPMeds",
+            label: "BP Medications",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          {
+            name: "prevalentStroke",
+            label: "Prevalent Stroke",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          {
+            name: "prevalentHyp",
+            label: "Prevalent Hypertension",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          {
+            name: "diabetes",
+            label: "Diabetes",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          { name: "totChol", label: "Total Cholesterol", type: "number" },
+          { name: "sysBP", label: "Systolic BP", type: "number" },
+          { name: "diaBP", label: "Diastolic BP", type: "number" },
+          { name: "bmi", label: "BMI", type: "number" },
+          { name: "heartRate", label: "Heart Rate", type: "number" },
+          { name: "glucose", label: "Glucose", type: "number" },
+        ].map((field) => (
+          <div key={field.name}>
+            <label className="text-sm">{field.label}</label>
+            {field.type === "select" ? (
+              <select
+                name={field.name}
+                value={formData[field.name]}
+                onChange={handleChange}
+                className="border p-2 rounded w-full"
+              >
+                {field.options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type={field.type}
+                name={field.name}
+                value={formData[field.name]}
+                onChange={handleChange}
+                className="border p-2 rounded w-full"
+              />
+            )}
+          </div>
+        ))}
       </div>
 
-      {/* Buttons */}
       <div className="flex gap-4 mt-8 justify-end">
         <button
           type="button"
