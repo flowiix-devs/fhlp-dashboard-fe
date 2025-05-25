@@ -4,13 +4,20 @@ import React, { useState } from "react";
 const PatientDataForm = () => {
   const [formData, setFormData] = useState({
     age: "",
-    sex: "",
-    chestPain: "",
-    bp: "",
-    cholesterol: "",
-    fastingSugar: "",
-    restingEcg: "",
-    maxHeartRate: "",
+    sex: "", // 0 = Female, 1 = Male
+    education: "",
+    currentSmoker: "",
+    cigsPerDay: "",
+    BPMeds: "",
+    prevalentStroke: "",
+    prevalentHyp: "",
+    diabetes: "",
+    totChol: "",
+    sysBP: "",
+    diaBP: "",
+    bmi: "",
+    heartRate: "",
+    glucose: "",
   });
 
   const handleChange = (e) => {
@@ -22,12 +29,19 @@ const PatientDataForm = () => {
     setFormData({
       age: "",
       sex: "",
-      chestPain: "",
-      bp: "",
-      cholesterol: "",
-      fastingSugar: "",
-      restingEcg: "",
-      maxHeartRate: "",
+      education: "",
+      currentSmoker: "",
+      cigsPerDay: "",
+      BPMeds: "",
+      prevalentStroke: "",
+      prevalentHyp: "",
+      diabetes: "",
+      totChol: "",
+      sysBP: "",
+      diaBP: "",
+      bmi: "",
+      heartRate: "",
+      glucose: "",
     });
   };
 
@@ -45,6 +59,7 @@ const PatientDataForm = () => {
           Patient Data Input
         </h2>
       </div>
+
       <div className="grid grid-cols-2 gap-4">
         {/* Age */}
         <div>
@@ -73,85 +88,177 @@ const PatientDataForm = () => {
           </select>
         </div>
 
-        {/* Chest Pain Type */}
+        {/* Education */}
         <div>
-          <label className="text-sm">Chest Pain Type</label>
+          <label className="text-sm">Education</label>
           <select
-            name="chestPain"
-            value={formData.chestPain}
+            name="education"
+            value={formData.education}
             onChange={handleChange}
             className="border p-2 rounded w-full"
           >
             <option value="">Select</option>
-            <option value="0">Typical Angina</option>
-            <option value="1">Atypical Angina</option>
-            <option value="2">Non-anginal Pain</option>
-            <option value="3">Asymptomatic</option>
+            <option value="1">Less than High School</option>
+            <option value="2">High School Graduate</option>
+            <option value="3">Some College/Technical School</option>
+            <option value="4">College Graduate or Higher</option>
           </select>
         </div>
 
-        {/* Resting BP */}
+        {/* Current Smoker */}
         <div>
-          <label className="text-sm">Resting BP</label>
+          <label className="text-sm">Current Smoker</label>
+          <select
+            name="currentSmoker"
+            value={formData.currentSmoker}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          >
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+
+        {/* Cigarettes Per Day */}
+        <div>
+          <label className="text-sm">Cigarettes Per Day</label>
           <input
             type="number"
-            name="bp"
-            value={formData.bp}
+            name="cigsPerDay"
+            value={formData.cigsPerDay}
             onChange={handleChange}
             className="border p-2 rounded w-full"
           />
         </div>
 
-        {/* Cholesterol */}
+        {/* BP Meds */}
         <div>
-          <label className="text-sm">Cholesterol</label>
+          <label className="text-sm">BP Medications</label>
+          <select
+            name="BPMeds"
+            value={formData.BPMeds}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          >
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+
+        {/* Prevalent Stroke */}
+        <div>
+          <label className="text-sm">Prevalent Stroke</label>
+          <select
+            name="prevalentStroke"
+            value={formData.prevalentStroke}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          >
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+
+        {/* Prevalent Hypertension */}
+        <div>
+          <label className="text-sm">Prevalent Hypertension</label>
+          <select
+            name="prevalentHyp"
+            value={formData.prevalentHyp}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          >
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+
+        {/* Diabetes */}
+        <div>
+          <label className="text-sm">Diabetes</label>
+          <select
+            name="diabetes"
+            value={formData.diabetes}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          >
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+
+        {/* Total Cholesterol */}
+        <div>
+          <label className="text-sm">Total Cholesterol</label>
           <input
             type="number"
-            name="cholesterol"
-            value={formData.cholesterol}
+            name="totChol"
+            value={formData.totChol}
             onChange={handleChange}
             className="border p-2 rounded w-full"
           />
         </div>
 
-        {/* Fasting Blood Sugar */}
+        {/* Systolic BP */}
         <div>
-          <label className="text-sm">Fasting Blood Sugar</label>
-          <select
-            name="fastingSugar"
-            value={formData.fastingSugar}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="0">False</option>
-            <option value="1">True</option>
-          </select>
-        </div>
-
-        {/* Resting ECG */}
-        <div>
-          <label className="text-sm">Resting ECG</label>
-          <select
-            name="restingEcg"
-            value={formData.restingEcg}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="0">Normal</option>
-            <option value="1">ST-T Abnormality</option>
-            <option value="2">LV Hypertrophy</option>
-          </select>
-        </div>
-
-        {/* Max Heart Rate */}
-        <div>
-          <label className="text-sm">Max Heart Rate</label>
+          <label className="text-sm">Systolic BP</label>
           <input
             type="number"
-            name="maxHeartRate"
-            value={formData.maxHeartRate}
+            name="sysBP"
+            value={formData.sysBP}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          />
+        </div>
+
+        {/* Diastolic BP */}
+        <div>
+          <label className="text-sm">Diastolic BP</label>
+          <input
+            type="number"
+            name="diaBP"
+            value={formData.diaBP}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          />
+        </div>
+
+        {/* BMI */}
+        <div>
+          <label className="text-sm">BMI</label>
+          <input
+            type="number"
+            name="bmi"
+            value={formData.bmi}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          />
+        </div>
+
+        {/* Heart Rate */}
+        <div>
+          <label className="text-sm">Heart Rate</label>
+          <input
+            type="number"
+            name="heartRate"
+            value={formData.heartRate}
+            onChange={handleChange}
+            className="border p-2 rounded w-full"
+          />
+        </div>
+
+        {/* Glucose */}
+        <div>
+          <label className="text-sm">Glucose</label>
+          <input
+            type="number"
+            name="glucose"
+            value={formData.glucose}
             onChange={handleChange}
             className="border p-2 rounded w-full"
           />
