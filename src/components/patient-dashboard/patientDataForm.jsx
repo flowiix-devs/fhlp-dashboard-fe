@@ -1,10 +1,11 @@
-import { PanelsTopLeft } from "lucide-react";
 import React, { useState } from "react";
+import axios from "axios";
+import { PanelsTopLeft } from "lucide-react";
 
 const PatientDataForm = () => {
   const [formData, setFormData] = useState({
     age: "",
-    sex: "", // 0 = Female, 1 = Male
+    sex: "",
     education: "",
     currentSmoker: "",
     cigsPerDay: "",
@@ -45,8 +46,18 @@ const PatientDataForm = () => {
     });
   };
 
-  const handleAnalyse = () => {
-    console.log(formData);
+  const handleAnalyse = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/analyse-patient",
+        formData
+      );
+      console.log("Analysis Result:", response.data);
+      alert("Analysis submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting data:", error);
+      alert("Failed to submit data. Check the console for more info.");
+    }
   };
 
   return (
@@ -61,211 +72,116 @@ const PatientDataForm = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        {/* Age */}
-        <div>
-          <label className="text-sm">Age</label>
-          <input
-            type="number"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* Sex */}
-        <div>
-          <label className="text-sm">Sex</label>
-          <select
-            name="sex"
-            value={formData.sex}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="0">Female</option>
-            <option value="1">Male</option>
-          </select>
-        </div>
-
-        {/* Education */}
-        <div>
-          <label className="text-sm">Education</label>
-          <select
-            name="education"
-            value={formData.education}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="1">Less than High School</option>
-            <option value="2">High School Graduate</option>
-            <option value="3">Some College/Technical School</option>
-            <option value="4">College Graduate or Higher</option>
-          </select>
-        </div>
-
-        {/* Current Smoker */}
-        <div>
-          <label className="text-sm">Current Smoker</label>
-          <select
-            name="currentSmoker"
-            value={formData.currentSmoker}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-          </select>
-        </div>
-
-        {/* Cigarettes Per Day */}
-        <div>
-          <label className="text-sm">Cigarettes Per Day</label>
-          <input
-            type="number"
-            name="cigsPerDay"
-            value={formData.cigsPerDay}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* BP Meds */}
-        <div>
-          <label className="text-sm">BP Medications</label>
-          <select
-            name="BPMeds"
-            value={formData.BPMeds}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-          </select>
-        </div>
-
-        {/* Prevalent Stroke */}
-        <div>
-          <label className="text-sm">Prevalent Stroke</label>
-          <select
-            name="prevalentStroke"
-            value={formData.prevalentStroke}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-          </select>
-        </div>
-
-        {/* Prevalent Hypertension */}
-        <div>
-          <label className="text-sm">Prevalent Hypertension</label>
-          <select
-            name="prevalentHyp"
-            value={formData.prevalentHyp}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-          </select>
-        </div>
-
-        {/* Diabetes */}
-        <div>
-          <label className="text-sm">Diabetes</label>
-          <select
-            name="diabetes"
-            value={formData.diabetes}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          >
-            <option value="">Select</option>
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-          </select>
-        </div>
-
-        {/* Total Cholesterol */}
-        <div>
-          <label className="text-sm">Total Cholesterol</label>
-          <input
-            type="number"
-            name="totChol"
-            value={formData.totChol}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* Systolic BP */}
-        <div>
-          <label className="text-sm">Systolic BP</label>
-          <input
-            type="number"
-            name="sysBP"
-            value={formData.sysBP}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* Diastolic BP */}
-        <div>
-          <label className="text-sm">Diastolic BP</label>
-          <input
-            type="number"
-            name="diaBP"
-            value={formData.diaBP}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* BMI */}
-        <div>
-          <label className="text-sm">BMI</label>
-          <input
-            type="number"
-            name="bmi"
-            value={formData.bmi}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* Heart Rate */}
-        <div>
-          <label className="text-sm">Heart Rate</label>
-          <input
-            type="number"
-            name="heartRate"
-            value={formData.heartRate}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* Glucose */}
-        <div>
-          <label className="text-sm">Glucose</label>
-          <input
-            type="number"
-            name="glucose"
-            value={formData.glucose}
-            onChange={handleChange}
-            className="border p-2 rounded w-full"
-          />
-        </div>
+        {[
+          { name: "age", label: "Age", type: "number" },
+          {
+            name: "sex",
+            label: "Sex",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "0", label: "Female" },
+              { value: "1", label: "Male" },
+            ],
+          },
+          {
+            name: "education",
+            label: "Education",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Less than High School" },
+              { value: "2", label: "High School Graduate" },
+              { value: "3", label: "Some College/Technical School" },
+              { value: "4", label: "College Graduate or Higher" },
+            ],
+          },
+          {
+            name: "currentSmoker",
+            label: "Current Smoker",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          { name: "cigsPerDay", label: "Cigarettes Per Day", type: "number" },
+          {
+            name: "BPMeds",
+            label: "BP Medications",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          {
+            name: "prevalentStroke",
+            label: "Prevalent Stroke",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          {
+            name: "prevalentHyp",
+            label: "Prevalent Hypertension",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          {
+            name: "diabetes",
+            label: "Diabetes",
+            type: "select",
+            options: [
+              { value: "", label: "Select" },
+              { value: "1", label: "Yes" },
+              { value: "0", label: "No" },
+            ],
+          },
+          { name: "totChol", label: "Total Cholesterol", type: "number" },
+          { name: "sysBP", label: "Systolic BP", type: "number" },
+          { name: "diaBP", label: "Diastolic BP", type: "number" },
+          { name: "bmi", label: "BMI", type: "number" },
+          { name: "heartRate", label: "Heart Rate", type: "number" },
+          { name: "glucose", label: "Glucose", type: "number" },
+        ].map((field) => (
+          <div key={field.name}>
+            <label className="text-sm">{field.label}</label>
+            {field.type === "select" ? (
+              <select
+                name={field.name}
+                value={formData[field.name]}
+                onChange={handleChange}
+                className="border p-2 rounded w-full"
+              >
+                {field.options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type={field.type}
+                name={field.name}
+                value={formData[field.name]}
+                onChange={handleChange}
+                className="border p-2 rounded w-full"
+              />
+            )}
+          </div>
+        ))}
       </div>
 
-      {/* Buttons */}
       <div className="flex gap-4 mt-8 justify-end">
         <button
           type="button"

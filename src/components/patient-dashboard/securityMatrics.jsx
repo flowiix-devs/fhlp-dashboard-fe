@@ -1,13 +1,16 @@
 import { LockIcon } from "lucide-react";
 import React from "react";
 
-const metrics = [
-  { name: "Attack Detection Rate", value: 98.2 },
-  { name: "Data Privacy Protection", value: 94.5 },
-  { name: "Model Poisoning Resistance", value: 92.8 },
-];
+const SecurityMetrics = ({ data }) => {
+  const metrics = [
+    { name: "Attack Detection Rate", value: data.attackDetectionRate },
+    { name: "Data Privacy Protection", value: data.dataPrivacyProtection },
+    {
+      name: "Model Poisoning Resistance",
+      value: data.modelPoisoningResistance,
+    },
+  ];
 
-const SecurityMetrics = () => {
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-sm border border-gray-100">
       {/* Header */}
@@ -26,12 +29,12 @@ const SecurityMetrics = () => {
           <div key={metric.name}>
             <div className="flex justify-between text-sm font-medium text-gray-700 mb-1">
               <span>{metric.name}</span>
-              <span className="text-gray-600">{metric.value}%</span>
+              <span className="text-gray-600">{metric.value ?? 0}%</span>
             </div>
             <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
               <div
                 className="h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full"
-                style={{ width: `${metric.value}%` }}
+                style={{ width: `${metric.value ?? 0}%` }}
               ></div>
             </div>
           </div>
@@ -44,7 +47,7 @@ const SecurityMetrics = () => {
         <p className="mt-1">
           All security metrics are within acceptable thresholds.
           <br />
-          Last security check: <strong>2 hours ago</strong>.
+          Last security check: <strong>{data.lastChecked || "N/A"}</strong>.
         </p>
       </div>
     </div>

@@ -22,17 +22,24 @@ ChartJS.register(
   Legend
 );
 
-const FlPerformance = () => {
-  const participatingNodes = 24;
-  const globalModelRound = 17;
-  const privacyEpsilon = 0.5;
+const FlPerformance = ({ data }) => {
+  const {
+    participatingNodes = 0,
+    globalModelRound = 0,
+    privacyEpsilon = 0,
+    performance = [],
+    updatedAt = null,
+  } = data || {};
+
+  const labels = performance.map((item) => `Round ${item.round}`);
+  const accuracyValues = performance.map((item) => item.accuracy);
 
   const chartData = {
-    labels: ["Round 1", "Round 5", "Round 10", "Round 17"],
+    labels,
     datasets: [
       {
         label: "Model Accuracy",
-        data: [0.75, 0.82, 0.88, 0.92],
+        data: accuracyValues,
         borderColor: "#4CAF50",
         backgroundColor: "rgba(76, 175, 80, 0.2)",
         fill: true,
@@ -72,8 +79,16 @@ const FlPerformance = () => {
     },
   };
 
+  const formatDate = (iso) => {
+    const d = new Date(iso);
+    return d.toLocaleString(undefined, {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200  ">
+    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-green-500">
           <ChartAreaIcon />
@@ -110,7 +125,7 @@ const FlPerformance = () => {
       </div>
 
       <div className="text-xs text-gray-500 mt-4 text-right">
-        Updated: May 22, 2025, 10:57 AM
+        Updated: {updatedAt ? formatDate(updatedAt) : "N/A"}
       </div>
     </div>
   );
