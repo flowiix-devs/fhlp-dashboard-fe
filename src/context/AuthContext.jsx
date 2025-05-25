@@ -23,12 +23,14 @@ export const AuthProvider = ({ children }) => {
       email: userData.email,
       firstName: userData.firstName,
       lastName: userData.lastName,
+      phone: userData.phone || '', // Optional field
     }));
     setUser({
       _id: userData._id,
       email: userData.email,
       firstName: userData.firstName,
       lastName: userData.lastName,
+      phone: userData.phone || '', // Optional field
     });
   };
 
